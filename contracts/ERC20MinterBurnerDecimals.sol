@@ -27,7 +27,8 @@ contract ERC20MinterBurnerDecimals is Context, AccessControlEnumerable, ERC20Bur
   bytes32 public constant MINTER_ROLE = keccak256("MINTER_ROLE");
   bytes32 public constant PAUSER_ROLE = keccak256("PAUSER_ROLE");
   bytes32 public constant BURNER_ROLE = keccak256("BURNER_ROLE");
-  uint8 private _decimals;
+  uint32 public constant MAX_SUPPLY = 15_000_000_000 * 10 ** 18;
+  uint8 private _decimals = 18;
 
   /**
     * @dev Grants `DEFAULT_ADMIN_ROLE`, `MINTER_ROLE` and `PAUSER_ROLE` to the
@@ -35,21 +36,12 @@ contract ERC20MinterBurnerDecimals is Context, AccessControlEnumerable, ERC20Bur
     *
     * See {ERC20-constructor}.
     */
-  constructor(string memory name, string memory symbol, uint8 decimals_)
+  constructor(string memory name, string memory symbol)
     ERC20(name, symbol) {
       _setupRole(DEFAULT_ADMIN_ROLE, _msgSender());
-
       _setupRole(MINTER_ROLE, _msgSender());
       _setupRole(PAUSER_ROLE, _msgSender());
       _setupRole(BURNER_ROLE, _msgSender());
-      _setupDecimals(decimals_);
-  }
-
-  /**
-    * @dev Sets `_decimals` as `decimals_ once at Deployment'
-    */
-  function _setupDecimals(uint8 decimals_) private {
-    _decimals = decimals_;
   }
 
   /**
@@ -70,6 +62,7 @@ contract ERC20MinterBurnerDecimals is Context, AccessControlEnumerable, ERC20Bur
     */
   function mint(address to, uint256 amount) public virtual {
       require(hasRole(MINTER_ROLE, _msgSender()), "ERC20MinterBurnerDecimals: must have minter role to mint");
+      require(totalSupply() + amount <= MAX_SUPPLY, "ERC20MinterMaxSupply: token total supply reached");
       _mint(to, amount);
   }
 

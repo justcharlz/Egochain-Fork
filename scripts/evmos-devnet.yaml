@@ -14,21 +14,21 @@ egax_5438-1:
     api:
       enable: true    
   validators:
-    - coins: 10001000000000000000000egax
-      staked: 1000000000000000000egax
+    - coins: 50001000000000000000000egax
+      staked: 5000000000000000000egax
       mnemonic: ${VALIDATOR1_MNEMONIC}
-    - coins: 10001000000000000000000egax
-      staked: 1000000000000000000egax
+    - coins: 50001000000000000000000egax
+      staked: 5000000000000000000egax
       mnemonic: ${VALIDATOR2_MNEMONIC}
   accounts:
     - name: community
-      coins: 10000000000000000000000egax
+      coins: 100000000000000000000000egax
       mnemonic: ${COMMUNITY_MNEMONIC}
     - name: signer1
-      coins: 20000000000000000000000egax
+      coins: 50000000000000000000000egax
       mnemonic: ${SIGNER1_MNEMONIC}
     - name: signer2
-      coins: 30000000000000000000000egax
+      coins: 50000000000000000000000egax
       mnemonic: ${SIGNER2_MNEMONIC}
 
   genesis:
@@ -48,7 +48,17 @@ egax_5438-1:
           bond_denom: egax      
       inflation:
         params:
-          mint_denom: egax              
+          mint_denom: egax
+          enable_inflation: true
+          exponential_calculation:
+            a: "800000000"
+            r: "0.8"
+            c: "40000000"
+            bonding_target: "0.66"
+            max_variance: "0.0"
+          inflation_distribution:
+            staking_rewards: "0.70"
+            community_pool: "0.30"
       gov:
         voting_params:
           voting_period: "10s"
@@ -68,5 +78,9 @@ egax_5438-1:
       feemarket:
         params:
           no_base_fee: false
-          base_fee: "100000000000"
-          min_gas_multiplier: "0"
+          base_fee: "1000000000000"
+          min_gas_price: "40000000000"
+          min_gas_multiplier: "0.5"
+          base_fee_change_denominator: 8
+          elasticity_multiplier: 2
+          enable_height: 0

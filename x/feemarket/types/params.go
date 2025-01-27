@@ -11,10 +11,11 @@ import (
 )
 
 var (
-	// DefaultMinGasMultiplier is 0.5 or 50%
-	DefaultMinGasMultiplier = math.LegacyNewDecWithPrec(50, 2)
-	// DefaultMinGasPrice is 0 (i.e disabled)
-	DefaultMinGasPrice = math.LegacyZeroDec()
+	// DefaultMinGasMultiplier is 0.8 or 80%
+	DefaultMinGasMultiplier = math.LegacyNewDecWithPrec(80, 2)
+	// DefaultMinGasPrice is 1 aegax
+	// Note: The actual value is 1 * 10^18 (considering 18 decimals)
+	DefaultMinGasPrice = math.LegacyNewDec(1)
 	// DefaultEnableHeight is 0 (i.e disabled)
 	DefaultEnableHeight = int64(0)
 	// DefaultNoBaseFee is false
@@ -78,7 +79,7 @@ func DefaultParams() Params {
 		NoBaseFee:                DefaultNoBaseFee,
 		BaseFeeChangeDenominator: params.BaseFeeChangeDenominator,
 		ElasticityMultiplier:     params.ElasticityMultiplier,
-		BaseFee:                  math.NewIntFromUint64(params.InitialBaseFee),
+		BaseFee:                  math.NewIntFromUint64(2000000000),
 		EnableHeight:             DefaultEnableHeight,
 		MinGasPrice:              DefaultMinGasPrice,
 		MinGasMultiplier:         DefaultMinGasMultiplier,

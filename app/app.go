@@ -178,8 +178,8 @@ func init() {
 	// manually update the power reduction by replacing micro (u) -> atto (a) evmos
 	sdk.DefaultPowerReduction = evmostypes.PowerReduction
 	// modify fee market parameter defaults through global
-	feemarkettypes.DefaultMinGasPrice = MainnetMinGasPrices
-	feemarkettypes.DefaultMinGasMultiplier = MainnetMinGasMultiplier
+	feemarkettypes.DefaultMinGasPrice = math.LegacyNewDecFromInt(math.NewInt(1000000)) // 1 EVMOS per gas unit
+	feemarkettypes.DefaultMinGasMultiplier = math.LegacyNewDecWithPrec(80, 2)          // 0.8 or 80%
 	// modify default min commission to 5%
 	stakingtypes.DefaultMinCommissionRate = math.LegacyNewDecWithPrec(5, 2)
 }

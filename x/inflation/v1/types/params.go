@@ -19,9 +19,9 @@ var (
 	DefaultInflationDenom         = evm.DefaultEVMDenom
 	DefaultInflation              = true
 	DefaultExponentialCalculation = ExponentialCalculation{
-		A:             math.LegacyNewDec(int64(300_000_000)),
-		R:             math.LegacyNewDecWithPrec(50, 2), // 50%
-		C:             math.LegacyNewDec(int64(9_375_000)),
+		A:             math.LegacyNewDec(int64(400_000_000)),
+		R:             math.LegacyNewDecWithPrec(40, 2), // 40%
+		C:             math.LegacyNewDec(int64(12_500_000)),
 		BondingTarget: math.LegacyNewDecWithPrec(66, 2), // 66%
 		MaxVariance:   math.LegacyZeroDec(),             // 0%
 	}

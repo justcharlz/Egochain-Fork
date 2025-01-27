@@ -10,15 +10,14 @@ option go_package = "github.com/evmos/evmos/v16/x/inflation/v1/types";
 // InflationDistribution defines the distribution in which inflation is
 // allocated through minting on each epoch (staking, incentives, community). It
 // excludes the team vesting distribution, as this is minted once at genesis.
-// The initial InflationDistribution can be calculated from the Evmos Token
-// Model like this:
-// mintDistribution1 = distribution1 / (1 - teamVestingDistribution)
-// 0.5333333         = 40%           / (1 - 25%)
+// The InflationDistribution allocates a higher proportion to staking rewards
+// to incentivize network security and validator participation. The distribution
+// is split between staking rewards and the community pool, with staking rewards
+// receiving the majority share to promote network stability.
 message InflationDistribution {
   // staking_rewards defines the proportion of the minted minted_denom that is
   // to be allocated as staking rewards
   string staking_rewards = 1 [(gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (gogoproto.nullable) = false];
-
   // protolint:disable FIELDS_HAVE_COMMENT
 
   // Deprecated: usage_incentives defines the proportion of the minted minted_denom that is
@@ -34,8 +33,9 @@ message InflationDistribution {
 // ExponentialCalculation holds factors to calculate exponential inflation on
 // each period. Calculation reference:
 // periodProvision = exponentialDecay       *  bondingIncentive
-// f(x)            = (a * (1 - r) ^ x + c)  *  (1 + max_variance - bondedRatio *
-// (max_variance / bonding_target))
+// f(x)            = (a * (1 - r) ^ x + c)  *  (1 + max_variance - bondedRatio * (max_variance / bonding_target))
+// The calculation is designed to provide higher initial inflation with a gradual decay,
+// while maintaining long-term sustainability through the bonding incentive mechanism.
 message ExponentialCalculation {
   // a defines the initial value
   string a = 1 [(gogoproto.customtype) = "cosmossdk.io/math.LegacyDec", (gogoproto.nullable) = false];
