@@ -78,7 +78,7 @@ egax_5438-1:
       feemarket:
         params:
           no_base_fee: false
-          base_fee: "1000000000000"
+          base_fee: "100000000000000000"
           min_gas_price: "40000000000"
           min_gas_multiplier: "0.5"
           base_fee_change_denominator: 8

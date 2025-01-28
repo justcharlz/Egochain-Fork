@@ -81,6 +81,14 @@ contract ERC20MinterBurnerDecimals is Context, AccessControlEnumerable, ERC20Bur
   }
 
   /**
+   * @dev Returns the maximum supply of tokens
+   * @return the maximum token supply
+   */
+  function maxSupply() public pure returns (uint256) {
+      return MAX_SUPPLY;
+  }
+
+  /**
     * @dev Pauses all token transfers.
     *
     * See {ERC20Pausable} and {Pausable-_pause}.

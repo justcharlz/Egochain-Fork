@@ -106,7 +106,7 @@
         feemarket: {
           params: {
             no_base_fee: false,
-            base_fee: '100000000000',
+            base_fee: '100000000000000000',
           },
         },
       },
