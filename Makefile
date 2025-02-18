@@ -8,7 +8,7 @@ COMMIT := $(shell git log -1 --format='%H')
 LEDGER_ENABLED ?= true
 BINDIR ?= $(GOPATH)/bin
 EVMOS_BINARY = dhivesd
-EVMOS_DIR = egochain
+EVMOS_DIR = dhives
 BUILDDIR ?= $(CURDIR)/build
 HTTPS_GIT := https://github.com/evmos/evmos.git
 DOCKER := $(shell which docker)
@@ -20,7 +20,7 @@ ifdef GITHUB_TOKEN
 	endif
 endif
 NAMESPACE := tharsishq
-PROJECT := egochain
+PROJECT := dhives
 DOCKER_IMAGE := $(NAMESPACE)/$(PROJECT)
 COMMIT_HASH := $(shell git rev-parse --short=7 HEAD)
 DOCKER_TAG := $(COMMIT_HASH)
@@ -176,7 +176,7 @@ build-docker:
 	echo '#!/usr/bin/env bash' > ./build/dhivesd
 	echo "IMAGE_NAME=${DOCKER_IMAGE}:${COMMIT_HASH}" >> ./build/dhivesd
 	echo 'SCRIPT_PATH=$$(cd $$(dirname $$0) && pwd -P)' >> ./build/dhivesd
-	echo 'docker run -it --rm -v $${SCRIPT_PATH}/.dhivesd:/home/egochain/.dhivesd $$IMAGE_NAME dhivesd "$$@"' >> ./build/dhivesd
+	echo 'docker run -it --rm -v $${SCRIPT_PATH}/.dhivesd:/home/dhives/.dhivesd $$IMAGE_NAME dhivesd "$$@"' >> ./build/dhivesd
 	chmod +x ./build/dhivesd
 
 build-pebbledb:
