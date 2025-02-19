@@ -2,7 +2,7 @@
 
 KEY="dev0"
 CHAINID="dhives_5438-1"
-MONIKER="mymoniker"
+MONIKER="groundzero"
 DATA_DIR=$(mktemp -d -t evmos-datadir.dhives)
 
 # Check multiple possible locations for dhivesd binary
