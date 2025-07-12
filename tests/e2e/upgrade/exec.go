@@ -29,7 +29,7 @@ func (m *Manager) CreateModuleTxExec(txArgs E2ETxArgs) (string, error) {
 		fmt.Sprintf("--chain-id=%s", txArgs.ChainID),
 		"--keyring-backend=test",
 		"--output=json",
-		"--fees=500000000000egax",
+		"--fees=500000000000dhives",
 		"--gas=auto",
 		fmt.Sprintf("--from=%s", txArgs.From),
 		"--yes",

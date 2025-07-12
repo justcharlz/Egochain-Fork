@@ -17,7 +17,7 @@ import (
 
 func init() {
 	cfg := sdk.GetConfig()
-	cfg.SetBech32PrefixForAccount("egax", "evmospub")
+	cfg.SetBech32PrefixForAccount("dhives", "evmospub")
 }
 
 func TestIsSupportedKeys(t *testing.T) {
@@ -88,7 +88,7 @@ func TestGetEvmosAddressFromBech32(t *testing.T) {
 		},
 		{
 			"invalid bech32 address",
-			"egax",
+			"dhives",
 			"",
 			true,
 		},
@@ -99,7 +99,7 @@ func TestGetEvmosAddressFromBech32(t *testing.T) {
 			true,
 		},
 		{
-			"egax address",
+			"dhives address",
 			"evmos1qql8ag4cluz6r4dz28p3w00dnc9w8ueuafmxps",
 			"evmos1qql8ag4cluz6r4dz28p3w00dnc9w8ueuafmxps",
 			false,
@@ -137,7 +137,7 @@ func TestEvmosCoinDenom(t *testing.T) {
 	}{
 		{
 			"valid denom - native coin",
-			"egax",
+			"dhives",
 			false,
 		},
 		{

@@ -32,11 +32,11 @@ func TestUnpackBalancesResponse(t *testing.T) {
 		{
 			name: "success",
 			output: fmt.Sprintf(
-				`{"balances":[{"denom":"egax","amount":"%s"}],`+
+				`{"balances":[{"denom":"dhives","amount":"%s"}],`+
 					`"pagination":{"next_key":null,"total":"0"}}`,
 				expAmount,
 			),
-			want:    sdk.Coins{sdk.NewCoin("egax", expAmount)},
+			want:    sdk.Coins{sdk.NewCoin("dhives", expAmount)},
 			expPass: true,
 		},
 		{

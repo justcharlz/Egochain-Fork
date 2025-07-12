@@ -148,36 +148,36 @@ var _ = Describe("Convert receiving IBC to Erc20", Ordered, func() {
 			ibcAtomBalanceAfter := s.app.BankKeeper.GetBalance(s.EvmosChain.GetContext(), receiverAcc, teststypes.UatomIbcdenom)
 			s.Require().Equal(amount, ibcAtomBalanceAfter.Amount.Int64())
 		})
-		It("should transfer and not convert egax", func() {
-			// Register 'egax' coin in ERC-20 keeper to validate it is not converting the coins when receiving 'egax' thru IBC
+		It("should transfer and not convert dhives", func() {
+			// Register 'dhives' coin in ERC-20 keeper to validate it is not converting the coins when receiving 'dhives' thru IBC
 			pair, err := s.app.Erc20Keeper.RegisterCoin(s.EvmosChain.GetContext(), evmosMeta)
 			s.Require().NoError(err)
 
-			egaxInitialBalance := s.app.BankKeeper.GetBalance(s.EvmosChain.GetContext(), receiverAcc, utils.BaseDenom)
+			dhivesInitialBalance := s.app.BankKeeper.GetBalance(s.EvmosChain.GetContext(), receiverAcc, utils.BaseDenom)
 
-			// 1. Send egax from Evmos to Osmosis
+			// 1. Send dhives from Evmos to Osmosis
 			s.SendAndReceiveMessage(s.pathOsmosisEvmos, s.EvmosChain, utils.BaseDenom, amount, receiver, sender, 1, "")
 
-			egaxAfterBalance := s.app.BankKeeper.GetBalance(s.EvmosChain.GetContext(), receiverAcc, utils.BaseDenom)
-			s.Require().Equal(egaxInitialBalance.Amount.Sub(math.NewInt(amount)).Sub(sendAndReceiveMsgFee), egaxAfterBalance.Amount)
+			dhivesAfterBalance := s.app.BankKeeper.GetBalance(s.EvmosChain.GetContext(), receiverAcc, utils.BaseDenom)
+			s.Require().Equal(dhivesInitialBalance.Amount.Sub(math.NewInt(amount)).Sub(sendAndReceiveMsgFee), dhivesAfterBalance.Amount)
 
-			// check ibc egax coins balance on Osmosis
-			egaxIBCBalanceBefore := s.IBCOsmosisChain.GetSimApp().BankKeeper.GetBalance(s.IBCOsmosisChain.GetContext(), senderAcc, teststypes.AevmosIbcdenom)
-			s.Require().Equal(amount, egaxIBCBalanceBefore.Amount.Int64())
+			// check ibc dhives coins balance on Osmosis
+			dhivesIBCBalanceBefore := s.IBCOsmosisChain.GetSimApp().BankKeeper.GetBalance(s.IBCOsmosisChain.GetContext(), senderAcc, teststypes.AevmosIbcdenom)
+			s.Require().Equal(amount, dhivesIBCBalanceBefore.Amount.Int64())
 
-			// 2. Send egax IBC coins from Osmosis to Evmos
+			// 2. Send dhives IBC coins from Osmosis to Evmos
 			ibcCoinMeta := fmt.Sprintf("%s/%s", teststypes.AevmosDenomtrace.Path, teststypes.AevmosDenomtrace.BaseDenom)
 			s.SendBackCoins(s.pathOsmosisEvmos, s.IBCOsmosisChain, teststypes.AevmosIbcdenom, amount, sender, receiver, 1, ibcCoinMeta)
 
-			// check ibc egax coins balance on Osmosis - should be zero
-			egaxIBCSenderFinalBalance := s.IBCOsmosisChain.GetSimApp().BankKeeper.GetBalance(s.IBCOsmosisChain.GetContext(), senderAcc, teststypes.AevmosIbcdenom)
-			s.Require().Equal(int64(0), egaxIBCSenderFinalBalance.Amount.Int64())
+			// check ibc dhives coins balance on Osmosis - should be zero
+			dhivesIBCSenderFinalBalance := s.IBCOsmosisChain.GetSimApp().BankKeeper.GetBalance(s.IBCOsmosisChain.GetContext(), senderAcc, teststypes.AevmosIbcdenom)
+			s.Require().Equal(int64(0), dhivesIBCSenderFinalBalance.Amount.Int64())
 
-			// check egax balance after transfer - should be equal to initial balance
-			egaxFinalBalance := s.app.BankKeeper.GetBalance(s.EvmosChain.GetContext(), receiverAcc, utils.BaseDenom)
+			// check dhives balance after transfer - should be equal to initial balance
+			dhivesFinalBalance := s.app.BankKeeper.GetBalance(s.EvmosChain.GetContext(), receiverAcc, utils.BaseDenom)
 
 			totalFees := sendBackCoinsFee.Add(sendAndReceiveMsgFee)
-			s.Require().Equal(egaxInitialBalance.Amount.Sub(totalFees), egaxFinalBalance.Amount)
+			s.Require().Equal(dhivesInitialBalance.Amount.Sub(totalFees), dhivesFinalBalance.Amount)
 
 			// check IBC Coin balance - should be zero
 			ibcCoinsBalance := s.app.BankKeeper.GetBalance(s.EvmosChain.GetContext(), receiverAcc, teststypes.AevmosIbcdenom)

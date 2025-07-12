@@ -46,16 +46,16 @@ func TestParseChainID(t *testing.T) {
 			"invalid chain-id, special chars", "$&*#!_1-1", true, nil,
 		},
 		{
-			"invalid eip155 chain-id, cannot start with 0", "egax_001-1", true, nil,
+			"invalid eip155 chain-id, cannot start with 0", "dhives_001-1", true, nil,
 		},
 		{
-			"invalid eip155 chain-id, cannot invalid base", "egax_0x212-1", true, nil,
+			"invalid eip155 chain-id, cannot invalid base", "dhives_0x212-1", true, nil,
 		},
 		{
-			"invalid eip155 chain-id, non-integer", "egax_egax_5438-1", true, nil,
+			"invalid eip155 chain-id, non-integer", "dhives_dhives_5438-1", true, nil,
 		},
 		{
-			"invalid epoch, undefined", "egax_-", true, nil,
+			"invalid epoch, undefined", "dhives_-", true, nil,
 		},
 		{
 			"blank chain ID", " ", true, nil,

@@ -16,7 +16,7 @@ import (
 
 func init() {
 	cfg := sdk.GetConfig()
-	cfg.SetBech32PrefixForAccount("egax", "egaxpub")
+	cfg.SetBech32PrefixForAccount("dhives", "dhivespub")
 }
 
 func TestGetTransferSenderRecipient(t *testing.T) {
@@ -244,9 +244,9 @@ func TestGetReceivedCoin(t *testing.T) {
 			"channel-0",
 			"transfer",
 			"channel-0",
-			"transfer/channel-0/egax",
+			"transfer/channel-0/dhives",
 			"10",
-			sdk.Coin{Denom: "egax", Amount: math.NewInt(10)},
+			sdk.Coin{Denom: "dhives", Amount: math.NewInt(10)},
 		},
 		{
 			"transfer 2x ibc wrapped coin to destination which is its source",
@@ -284,14 +284,14 @@ func TestGetSentCoin(t *testing.T) {
 		expCoin   sdk.Coin
 	}{
 		{
-			"get unwrapped egax coin",
-			"egax",
+			"get unwrapped dhives coin",
+			"dhives",
 			"10",
-			sdk.Coin{Denom: "egax", Amount: math.NewInt(10)},
+			sdk.Coin{Denom: "dhives", Amount: math.NewInt(10)},
 		},
 		{
-			"get ibc wrapped egax coin",
-			"transfer/channel-0/egax",
+			"get ibc wrapped dhives coin",
+			"transfer/channel-0/dhives",
 			"10",
 			sdk.Coin{Denom: teststypes.AevmosIbcdenom, Amount: math.NewInt(10)},
 		},
@@ -338,21 +338,21 @@ func TestDeriveDecimalsFromDenom(t *testing.T) {
 		},
 		{
 			name:      "fail: invalid prefix",
-			baseDenom: "negax",
+			baseDenom: "ndhives",
 			expDec:    0,
 			expFail:   true,
 			expErrMsg: "Should be either micro ('u[...]') or atto ('a[...]'); got: \"nevmos\"",
 		},
 		{
 			name:      "success: micro 'u' prefix",
-			baseDenom: "uegax",
+			baseDenom: "udhives",
 			expDec:    6,
 			expFail:   false,
 			expErrMsg: "",
 		},
 		{
 			name:      "success: atto 'a' prefix",
-			baseDenom: "egax",
+			baseDenom: "dhives",
 			expDec:    18,
 			expFail:   false,
 			expErrMsg: "",

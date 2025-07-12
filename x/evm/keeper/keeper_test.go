@@ -37,13 +37,13 @@ func (suite *KeeperTestSuite) TestWithChainID() {
 		},
 		{
 			"success - Egochain mainnet chain ID",
-			"egax_5439-2",
+			"dhives_5439-2",
 			5439,
 			false,
 		},
 		{
 			"success - Egochain testnet chain ID",
-			"egax_5438-4",
+			"dhives_5438-4",
 			5438,
 			false,
 		},

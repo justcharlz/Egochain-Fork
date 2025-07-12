@@ -3,7 +3,7 @@
 KEY="dev0"
 CHAINID="dhives_5438-1"
 MONIKER="groundzero"
-DATA_DIR=$(mktemp -d -t evmos-datadir.dhives)
+DATA_DIR=$(mktemp -d -t evmos-datadir.dhives.XXXXXX)
 
 # Check multiple possible locations for dhivesd binary
 BINARY_PATH=""
@@ -29,7 +29,7 @@ $BINARY_PATH add-genesis-account \
 "$($BINARY_PATH keys show $KEY -a --home $DATA_DIR --keyring-backend test)" 10000000000000000000000000dhives \
 --home $DATA_DIR --keyring-backend test
 echo "prepare genesis: Sign genesis transaction (5 million DHIVES for validators)"
-$BINARY_PATH gentx $KEY 5000000000000000000000000dhives --keyring-backend test --home $DATA_DIR --keyring-backend test --chain-id $CHAINID
+$BINARY_PATH gentx $KEY 5000000000000000000000000dhives --home $DATA_DIR --keyring-backend test --chain-id $CHAINID
 echo "prepare genesis: Collect genesis tx"
 $BINARY_PATH collect-gentxs --home $DATA_DIR
 echo "prepare genesis: Run validate-genesis to ensure everything worked and that the genesis file is setup correctly"

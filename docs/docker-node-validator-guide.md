@@ -22,6 +22,7 @@ If the `dhivesd` binary is not present, build and install it using:
 
 ```bash
 make build
+make install
 ```
 
 ## 3. Starting a Docker Node
